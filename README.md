@@ -1,6 +1,4 @@
-# Spring Boot application template
-
-[![Build Status](https://travis-ci.org/hmcts/spring-boot-template.svg?branch=master)](https://travis-ci.org/hmcts/spring-boot-template)
+# Publication & Information Business Rules Microservice
 
 ## Purpose
 
