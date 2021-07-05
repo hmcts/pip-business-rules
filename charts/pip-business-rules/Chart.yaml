@@ -1,7 +1,7 @@
 name: PIP Business Rules
 apiVersion: v2
 home: https://github.com/hmcts/pip-business-rules
-version: 0.0.1
+version: 0.0.2
 description: Publishing & Information Business Rules
 maintainers:
   - name: HMCTS PIP Team
