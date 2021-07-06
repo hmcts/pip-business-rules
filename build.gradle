@@ -154,9 +154,9 @@ dependencyManagement {
 }
 
 repositories {
-  mavenLocal()
   mavenCentral()
   jcenter()
+  mavenLocal()
 }
 
 def versions = [
