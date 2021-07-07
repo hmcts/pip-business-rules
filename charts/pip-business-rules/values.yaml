@@ -1,6 +1,6 @@
 java:
   aadIdentityName: pip
-  ingressHost: pip-business-rules-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+  ingressHost: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
   applicationPort: 4550
   image: 'hmctspublic.azurecr.io/pip-business-rules:latest'
   
