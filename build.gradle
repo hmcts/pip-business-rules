@@ -107,21 +107,35 @@ pmd {
   ruleSetFiles = files("config/pmd/ruleset.xml")
 }
 
+jacoco {
+    toolVersion = "0.8.6"
+}
+
 jacocoTestReport {
-  executionData(test, integration)
-  reports {
-    xml.enabled = true
-    csv.enabled = false
-    xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
-  }
+    executionData(test)
+    reports {
+        xml.enabled = true
+        csv.enabled = false
+        xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.8
+            }
+        }
+    }
 }
 
 project.tasks['sonarqube'].dependsOn jacocoTestReport
 
 sonarqube {
   properties {
-    property "sonar.projectName", "Reform :: spring-boot-template"
-    property "sonar.projectKey", "uk.gov.hmcts.reform:spring-boot-template"
+    property "sonar.projectName", "pip-business-rules"
+    property "sonar.projectKey", "pip-business-rules"
     property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
   }
 }
