@@ -25,6 +25,14 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withPipeline(type, product, component) {
 
+    after('checkout') {
+        echo 'PIP Business Rules checked out'
+    }
+
+    after('test') {
+        echo 'PIP Business Rules tests passed'
+    }
+
     enableSlackNotifications('#pip-build-notices')
     enableAksStagingDeployment()
     disableLegacyDeployment()
