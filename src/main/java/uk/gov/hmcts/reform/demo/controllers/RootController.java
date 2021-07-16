@@ -25,5 +25,4 @@ public class RootController {
     public ResponseEntity<String> welcome() {
         return ok("Welcome to spring-boot-template");
     }
-
 }
