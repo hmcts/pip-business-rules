@@ -1,10 +1,16 @@
 package uk.gov.hmcts.reform.demo.controllers;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import uk.gov.hmcts.reform.demo.hearings.HearingsService;
+import uk.gov.hmcts.reform.demo.model.Publication;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -13,6 +19,10 @@ import static org.springframework.http.ResponseEntity.ok;
  */
 @RestController
 public class RootController {
+
+    @Autowired
+    HearingsService hearingsService;
+
 
     /**
      * Root GET endpoint.
@@ -41,8 +51,16 @@ public class RootController {
      * @return The publication, if found.
      */
     @GetMapping("/publication/{id}")
-    public ResponseEntity<String> getPublication(Integer id) {
+    @ApiResponses(value = {
+        @ApiResponse( code = 200, response = String.class, message = "Publication has been found" ),
+        @ApiResponse( code = 404, response = String.class, message = "Publication has not been found")
+    })
+    public ResponseEntity<Publication> getPublication(@ApiParam(value = "The publication ID to retrieve", required = true)
+                                                 @PathVariable Integer id) {
+
+
+
         return ResponseEntity.status(HttpStatus.OK)
-            .body("Hello World");
+            .body(hearingsService.getHearings(id));
     }
 }
