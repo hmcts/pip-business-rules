@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.demo.publications;
+package uk.gov.hmcts.reform.demo.rules;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

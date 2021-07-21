@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -22,13 +23,15 @@ public class Hearing {
     private Integer courtId;
 
     /**
-     * The date of the hearing.
+     * The date of the hearing
      */
+    @JsonFormat(pattern = "MM/dd/YYYY")
     private LocalDate date;
 
     /**
      * The time of the hearing.
      */
+    @JsonFormat(pattern = "HH:mm a")
     private LocalTime time;
 
     /**

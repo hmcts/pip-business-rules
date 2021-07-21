@@ -44,7 +44,7 @@ public class InMemoryRepository {
 
             Hearing otherHearing = new Hearing();
             otherHearing.setHearingId(2);
-            otherHearing.setCourtId(1);
+            otherHearing.setCourtId(2);
             otherHearing.setDate(LocalDate.now());
             otherHearing.setTime(LocalTime.now());
             otherHearing.setJudge("This is a judge");

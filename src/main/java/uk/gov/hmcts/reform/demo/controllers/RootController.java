@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.reform.demo.model.Publication;
-import uk.gov.hmcts.reform.demo.publications.RulesService;
+import uk.gov.hmcts.reform.demo.rules.RulesService;
 
 import static org.springframework.http.ResponseEntity.ok;
 
