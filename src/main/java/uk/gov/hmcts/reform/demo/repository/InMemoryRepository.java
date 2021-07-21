@@ -18,6 +18,8 @@ import java.util.Optional;
 @Component
 public class InMemoryRepository {
 
+    private static final Integer AVAILABLE_PUBLICATION = 1;
+
     /**
      * Method to retrieve a publication using it's ID.
      * @param publicationId The ID of the publication.
@@ -25,7 +27,7 @@ public class InMemoryRepository {
      */
     public Optional<Publication> getPublication(Integer publicationId) {
 
-        if (publicationId == 1) {
+        if (publicationId.equals(AVAILABLE_PUBLICATION)) {
             CourtHearings courtHearings = new CourtHearings();
             courtHearings.setCourtId(1);
             courtHearings.setName("This is a court");

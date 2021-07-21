@@ -8,7 +8,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 import uk.gov.hmcts.reform.demo.errorhandling.ExceptionResponse;
 import uk.gov.hmcts.reform.demo.errorhandling.GlobalExceptionHandler;
 import uk.gov.hmcts.reform.demo.errorhandling.exceptions.PublicationNotFoundException;
-import uk.gov.hmcts.reform.demo.errorhandling.exceptions.RuleNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,7 +27,7 @@ public class GlobalExceptionHandlerTest {
         ServletWebRequest servletWebRequest = new ServletWebRequest(mockHttpServletRequest);
 
         ResponseEntity<ExceptionResponse> responseEntity =
-            globalExceptionHandler.handleRuleNotFound(publicationNotFoundException, servletWebRequest);
+            globalExceptionHandler.handlePublicationNotFound(publicationNotFoundException, servletWebRequest);
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode(), "Status code should be not found");
         assertNotNull(responseEntity.getBody(), "Response should contain a body");

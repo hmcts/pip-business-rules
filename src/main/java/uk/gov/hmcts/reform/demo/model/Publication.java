@@ -16,7 +16,7 @@ public class Publication {
     private Integer publicationId;
 
     /**
-     * The list of Court Hearings
+     * The list of Court Hearings.
      */
     private List<CourtHearings> courtHearingsList;
 

@@ -3,15 +3,9 @@ package uk.gov.hmcts.reform.demo.publications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.demo.errorhandling.exceptions.PublicationNotFoundException;
-import uk.gov.hmcts.reform.demo.model.CourtHearings;
-import uk.gov.hmcts.reform.demo.model.Hearing;
 import uk.gov.hmcts.reform.demo.model.Publication;
 import uk.gov.hmcts.reform.demo.repository.InMemoryRepository;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**

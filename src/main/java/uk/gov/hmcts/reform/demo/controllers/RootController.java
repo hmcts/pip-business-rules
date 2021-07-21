@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.hmcts.reform.demo.publications.RulesService;
 import uk.gov.hmcts.reform.demo.model.Publication;
+import uk.gov.hmcts.reform.demo.publications.RulesService;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -41,10 +41,10 @@ public class RootController {
     /**
      * This endpoint returns a publication, based on it's ID.
      *
-     * It will apply the business rules against the publication and requesting user,
+     * <p>It will apply the business rules against the publication and requesting user,
      * to understand whether they should see the requested publication.
      *
-     * If the user does not have permission to see the resource, or the resource is not found,
+     * <p>If the user does not have permission to see the resource, or the resource is not found,
      * then a 404 will be returned instead.
      *
      * @param id The ID of the publication to search for.
@@ -52,12 +52,11 @@ public class RootController {
      */
     @GetMapping("/publication/{id}")
     @ApiResponses(value = {
-        @ApiResponse( code = 200, response = String.class, message = "Publication has been found" ),
-        @ApiResponse( code = 404, response = String.class, message = "Publication has not been found")
+        @ApiResponse(code = 200, response = String.class, message = "Publication has been found"),
+        @ApiResponse(code = 404, response = String.class, message = "Publication has not been found")
     })
-    public ResponseEntity<Publication> getPublication(@ApiParam(value = "The publication ID to retrieve", required = true)
-                                                 @PathVariable Integer id) {
-
+    public ResponseEntity<Publication> getPublication(
+        @ApiParam(value = "The publication ID to retrieve", required = true) @PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK)
             .body(rulesService.getPublication(id));
     }
