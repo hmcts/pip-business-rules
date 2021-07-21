@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.hmcts.reform.demo.hearings.HearingsService;
+import uk.gov.hmcts.reform.demo.publications.RulesService;
 import uk.gov.hmcts.reform.demo.model.Publication;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -21,7 +21,7 @@ import static org.springframework.http.ResponseEntity.ok;
 public class RootController {
 
     @Autowired
-    HearingsService hearingsService;
+    RulesService rulesService;
 
 
     /**
@@ -58,9 +58,7 @@ public class RootController {
     public ResponseEntity<Publication> getPublication(@ApiParam(value = "The publication ID to retrieve", required = true)
                                                  @PathVariable Integer id) {
 
-
-
         return ResponseEntity.status(HttpStatus.OK)
-            .body(hearingsService.getHearings(id));
+            .body(rulesService.getPublication(id));
     }
 }

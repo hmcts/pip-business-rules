@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import uk.gov.hmcts.reform.demo.errorhandling.exceptions.RuleNotFoundException;
+import uk.gov.hmcts.reform.demo.errorhandling.exceptions.PublicationNotFoundException;
 
 import java.time.LocalDateTime;
 
@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
 
     /**
-     * Template exception handler, that handles a custom RuleNotFoundException,
+     * Template exception handler, that handles a custom PublicationNotFoundException,
      * and returns a 404 in the standard format.
      * @param ex The exception that has been thrown.
      * @param request The request made to the endpoint.
      * @return The error response, modelled using the ExceptionResponse object.
      */
-    @ExceptionHandler(RuleNotFoundException.class)
-    ResponseEntity<ExceptionResponse> handleRuleNotFound(RuleNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(PublicationNotFoundException.class)
+    ResponseEntity<ExceptionResponse> handlePublicationNotFound(PublicationNotFoundException ex, WebRequest request) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
         exceptionResponse.setMessage(ex.getMessage());

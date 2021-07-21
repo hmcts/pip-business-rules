@@ -13,7 +13,7 @@ public class Publication {
     /**
      * The publication ID, that represents this piece of data.
      */
-    private String publicationId;
+    private Integer publicationId;
 
     /**
      * The list of Court Hearings
