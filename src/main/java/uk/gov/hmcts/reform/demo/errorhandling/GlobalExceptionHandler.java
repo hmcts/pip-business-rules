@@ -23,8 +23,10 @@ public class GlobalExceptionHandler {
      * @param request The request made to the endpoint.
      * @return The error response, modelled using the ExceptionResponse object.
      */
+
     @ExceptionHandler(PublicationNotFoundException.class)
-    ResponseEntity<ExceptionResponse> handlePublicationNotFound(PublicationNotFoundException ex, WebRequest request) {
+    public ResponseEntity<ExceptionResponse> handleRuleNotFound(
+        PublicationNotFoundException ex, WebRequest request) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
         exceptionResponse.setMessage(ex.getMessage());
