@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
      */
 
     @ExceptionHandler(PublicationNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleRuleNotFound(
+    public ResponseEntity<ExceptionResponse> handlePublicationNotFound(
         PublicationNotFoundException ex, WebRequest request) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
