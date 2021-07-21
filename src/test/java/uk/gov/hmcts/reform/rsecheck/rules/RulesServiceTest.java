@@ -36,16 +36,18 @@ public class RulesServiceTest {
 
         Publication returnedPublication = rulesService.getPublication(1);
 
-        assertEquals(publication, returnedPublication);
+        assertEquals(publication, returnedPublication,
+                     "Check that the returned publication matches the created publication");
     }
 
     @Test
     public void testUnsuccessfulPublicationGet() {
 
-        when (inMemoryRepository.getPublication(1)).thenReturn(Optional.empty());
+        when(inMemoryRepository.getPublication(1)).thenReturn(Optional.empty());
 
-        assertThrows(PublicationNotFoundException.class, () -> rulesService.getPublication(1));
+        assertThrows(PublicationNotFoundException.class, () -> rulesService.getPublication(1),
+                     "Check that an exception is thrown if the publication isn't found");
     }
 
- }
+}
 

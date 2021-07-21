@@ -23,9 +23,9 @@ public class Hearing {
     private Integer courtId;
 
     /**
-     * The date of the hearing
+     * The date of the hearing.
      */
-    @JsonFormat(pattern = "MM/dd/YYYY")
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate date;
 
     /**

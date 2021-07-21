@@ -9,6 +9,7 @@ import uk.gov.hmcts.reform.demo.repository.InMemoryRepository;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,26 +18,27 @@ public class InMemoryRepositoryTest {
     InMemoryRepository inMemoryRepository = new InMemoryRepository();
 
     @Test
-    public void getPublicationPresentTest() {
+    public void publicationThatExistsTest() {
         Optional<Publication> publicationOptional = inMemoryRepository.getPublication(1);
-        assertTrue(publicationOptional.isPresent());
+        assertTrue(publicationOptional.isPresent(), "Check that a publication has been returned");
 
         Publication publication = publicationOptional.get();
-        assertEquals(1, publication.getPublicationId());
-        assertEquals(1, publication.getCourtHearingsList().size());
+        assertEquals(1, publication.getPublicationId(), "Check that the publication ID is 1");
+        assertEquals(1, publication.getCourtHearingsList().size(),
+                     "Check that a single publication is returned");
 
         List<CourtHearings> courtHearingsList = publication.getCourtHearingsList();
-        assertEquals(1, courtHearingsList.get(0).getCourtId());
+        assertThat(courtHearingsList.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
 
         List<Hearing> courtHearings = courtHearingsList.get(0).getHearingList();
-        assertEquals(1, courtHearings.get(0).getCourtId());
-        assertEquals(2, courtHearings.get(1).getCourtId());
+        assertThat(courtHearings.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
+        assertThat(courtHearings.get(1).getCourtId()).as("Get second court id").isEqualTo(2);
     }
 
     @Test
-    public void getPublicationNotPresentTest() {
+    public void publicationDoesNotExistTest() {
         Optional<Publication> publicationOptional = inMemoryRepository.getPublication(2);
-        assertTrue(publicationOptional.isEmpty());
+        assertTrue(publicationOptional.isEmpty(), "Check that no publication is returned");
     }
 
 
