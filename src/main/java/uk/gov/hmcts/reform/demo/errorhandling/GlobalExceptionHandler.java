@@ -24,7 +24,8 @@ public class GlobalExceptionHandler {
      * @return The error response, modelled using the ExceptionResponse object.
      */
     @ExceptionHandler(RuleNotFoundException.class)
-    ResponseEntity<ExceptionResponse> handleRuleNotFound(RuleNotFoundException ex, WebRequest request) {
+    public ResponseEntity<ExceptionResponse> handleRuleNotFound(
+        RuleNotFoundException ex, WebRequest request) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
         exceptionResponse.setMessage(ex.getMessage());
