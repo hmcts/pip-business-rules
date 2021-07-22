@@ -22,8 +22,10 @@ public class InMemoryRepositoryTest {
         Optional<Publication> publicationOptional = inMemoryRepository.getPublication(1);
         assertTrue(publicationOptional.isPresent(), "Check that a publication has been returned");
 
+        final int publicationId = 1;
         Publication publication = publicationOptional.get();
-        assertEquals(1, publication.getPublicationId(), "Check that the publication ID is 1");
+        assertEquals(publicationId, publication.getPublicationId(),
+                     "Check that the publication ID is " + publicationId);
         assertEquals(1, publication.getCourtHearingsList().size(),
                      "Check that a single court hearing list is returned");
 

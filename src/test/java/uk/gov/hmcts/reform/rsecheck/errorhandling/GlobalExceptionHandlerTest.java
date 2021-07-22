@@ -3,8 +3,6 @@ package uk.gov.hmcts.reform.rsecheck.errorhandling;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.context.request.ServletWebRequest;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.ExceptionResponse;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.GlobalExceptionHandler;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
@@ -22,12 +20,8 @@ public class GlobalExceptionHandlerTest {
         PublicationNotFoundException publicationNotFoundException
             = new PublicationNotFoundException("This is a test message");
 
-
-        MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
-        ServletWebRequest servletWebRequest = new ServletWebRequest(mockHttpServletRequest);
-
         ResponseEntity<ExceptionResponse> responseEntity =
-            globalExceptionHandler.handlePublicationNotFound(publicationNotFoundException, servletWebRequest);
+            globalExceptionHandler.handlePublicationNotFound(publicationNotFoundException);
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode(), "Status code should be not found");
         assertNotNull(responseEntity.getBody(), "Response should contain a body");

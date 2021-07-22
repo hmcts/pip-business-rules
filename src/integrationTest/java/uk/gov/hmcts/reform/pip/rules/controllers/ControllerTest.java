@@ -48,7 +48,8 @@ public class ControllerTest {
         Publication publication = objectMapper.readValue(
             response.getResponse().getContentAsByteArray(), Publication.class);
 
-        assertEquals(1, publication.getPublicationId(), "Publication ID is 1");
+        final int publicationID = 1;
+        assertEquals(publicationID, publication.getPublicationId(), "Publication ID is " + publicationID);
         assertEquals(1, publication.getCourtHearingsList().size(), "The array contains a single publication");
 
         List<CourtHearings> courtHearingsList = publication.getCourtHearingsList();
