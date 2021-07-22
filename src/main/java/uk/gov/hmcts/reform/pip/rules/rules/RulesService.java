@@ -1,10 +1,10 @@
-package uk.gov.hmcts.reform.demo.rules;
+package uk.gov.hmcts.reform.pip.rules.rules;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.gov.hmcts.reform.demo.errorhandling.exceptions.PublicationNotFoundException;
-import uk.gov.hmcts.reform.demo.model.Publication;
-import uk.gov.hmcts.reform.demo.repository.InMemoryRepository;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
+import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
 
 import java.util.Optional;
 

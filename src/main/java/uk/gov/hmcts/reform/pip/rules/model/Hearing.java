@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.demo.model;
+package uk.gov.hmcts.reform.pip.rules.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package uk.gov.hmcts.reform.rsecheck.errorhandling.exceptions;
 
 import org.junit.jupiter.api.Test;
-import uk.gov.hmcts.reform.demo.errorhandling.exceptions.PublicationNotFoundException;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

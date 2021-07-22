@@ -1,10 +1,10 @@
 package uk.gov.hmcts.reform.rsecheck.repository;
 
 import org.junit.jupiter.api.Test;
-import uk.gov.hmcts.reform.demo.model.CourtHearings;
-import uk.gov.hmcts.reform.demo.model.Hearing;
-import uk.gov.hmcts.reform.demo.model.Publication;
-import uk.gov.hmcts.reform.demo.repository.InMemoryRepository;
+import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.Hearing;
+import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,14 +25,14 @@ public class InMemoryRepositoryTest {
         Publication publication = publicationOptional.get();
         assertEquals(1, publication.getPublicationId(), "Check that the publication ID is 1");
         assertEquals(1, publication.getCourtHearingsList().size(),
-                     "Check that a single publication is returned");
+                     "Check that a single court hearing list is returned");
 
         List<CourtHearings> courtHearingsList = publication.getCourtHearingsList();
         assertThat(courtHearingsList.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
 
         List<Hearing> courtHearings = courtHearingsList.get(0).getHearingList();
-        assertThat(courtHearings.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
-        assertThat(courtHearings.get(1).getCourtId()).as("Get second court id").isEqualTo(2);
+        assertThat(courtHearings.get(0).getHearingId()).as("Get first hearing id").isEqualTo(1);
+        assertThat(courtHearings.get(1).getHearingId()).as("Get second hearing id").isEqualTo(2);
     }
 
     @Test

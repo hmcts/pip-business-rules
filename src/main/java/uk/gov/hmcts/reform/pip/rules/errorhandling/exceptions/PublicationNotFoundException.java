@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.demo.errorhandling.exceptions;
+package uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions;
 
 /**
  * Exception that captures the message when a publication is not found.

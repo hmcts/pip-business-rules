@@ -6,10 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.hmcts.reform.demo.errorhandling.exceptions.PublicationNotFoundException;
-import uk.gov.hmcts.reform.demo.model.Publication;
-import uk.gov.hmcts.reform.demo.repository.InMemoryRepository;
-import uk.gov.hmcts.reform.demo.rules.RulesService;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
+import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
+import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.demo.controllers;
+package uk.gov.hmcts.reform.pip.rules.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -9,9 +9,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import uk.gov.hmcts.reform.demo.model.CourtHearings;
-import uk.gov.hmcts.reform.demo.model.Hearing;
-import uk.gov.hmcts.reform.demo.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.Hearing;
+import uk.gov.hmcts.reform.pip.rules.model.Publication;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ControllerTest {
         assertThat(response.getResponse().getContentAsString()).startsWith("Welcome");
     }
 
-    @DisplayName("Should welcome upon root request with 200 response code")
+    @DisplayName("Should return a 200, and a list containing a single publication, with 1 court and 2 hearings")
     @Test
     public void publicationThatExistsTest() throws Exception {
         MvcResult response = mockMvc.perform(get("/publication/1")).andExpect(status().isOk()).andReturn();
@@ -48,19 +48,19 @@ public class ControllerTest {
         Publication publication = objectMapper.readValue(
             response.getResponse().getContentAsByteArray(), Publication.class);
 
-        assertEquals(1, publication.getPublicationId(), "Publication ID is 0");
+        assertEquals(1, publication.getPublicationId(), "Publication ID is 1");
         assertEquals(1, publication.getCourtHearingsList().size(), "The array contains a single publication");
 
         List<CourtHearings> courtHearingsList = publication.getCourtHearingsList();
         assertThat(courtHearingsList.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
 
         List<Hearing> courtHearings = courtHearingsList.get(0).getHearingList();
-        assertThat(courtHearings.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
-        assertThat(courtHearings.get(1).getCourtId()).as("Get second court id").isEqualTo(2);
+        assertThat(courtHearings.get(0).getHearingId()).as("Get first hearing id").isEqualTo(1);
+        assertThat(courtHearings.get(1).getHearingId()).as("Get second hearing id").isEqualTo(2);
     }
 
 
-    @DisplayName("Should welcome upon root request with 200 response code")
+    @DisplayName("Should return a 404, with no publications")
     @Test
     public void publicationDoesNotExistTest() throws Exception {
         MvcResult mvcResult = mockMvc.perform(get("/publication/2")).andExpect(status().isNotFound()).andReturn();

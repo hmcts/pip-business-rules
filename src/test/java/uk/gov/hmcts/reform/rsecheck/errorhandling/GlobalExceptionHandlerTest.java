@@ -5,9 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletWebRequest;
-import uk.gov.hmcts.reform.demo.errorhandling.ExceptionResponse;
-import uk.gov.hmcts.reform.demo.errorhandling.GlobalExceptionHandler;
-import uk.gov.hmcts.reform.demo.errorhandling.exceptions.PublicationNotFoundException;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.ExceptionResponse;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.GlobalExceptionHandler;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

@@ -1,9 +1,9 @@
-package uk.gov.hmcts.reform.demo.repository;
+package uk.gov.hmcts.reform.pip.rules.repository;
 
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.reform.demo.model.CourtHearings;
-import uk.gov.hmcts.reform.demo.model.Hearing;
-import uk.gov.hmcts.reform.demo.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.Hearing;
+import uk.gov.hmcts.reform.pip.rules.model.Publication;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -44,7 +44,7 @@ public class InMemoryRepository {
 
             Hearing otherHearing = new Hearing();
             otherHearing.setHearingId(2);
-            otherHearing.setCourtId(2);
+            otherHearing.setCourtId(1);
             otherHearing.setDate(LocalDate.now());
             otherHearing.setTime(LocalTime.now());
             otherHearing.setJudge("This is a judge");

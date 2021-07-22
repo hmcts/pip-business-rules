@@ -1,11 +1,11 @@
-package uk.gov.hmcts.reform.demo.errorhandling;
+package uk.gov.hmcts.reform.pip.rules.errorhandling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import uk.gov.hmcts.reform.demo.errorhandling.exceptions.PublicationNotFoundException;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
 
 import java.time.LocalDateTime;
 
