@@ -1,7 +1,7 @@
 package uk.gov.hmcts.reform.rsecheck.errorhandling;
 
 import org.junit.jupiter.api.Test;
-import uk.gov.hmcts.reform.demo.errorhandling.ExceptionResponse;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.ExceptionResponse;
 
 import java.time.LocalDateTime;
 

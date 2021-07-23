@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.demo.errorhandling;
+package uk.gov.hmcts.reform.pip.rules.errorhandling;
 
 import lombok.Data;
 
