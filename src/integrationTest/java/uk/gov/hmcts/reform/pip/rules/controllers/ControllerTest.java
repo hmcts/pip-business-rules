@@ -90,6 +90,7 @@ public class ControllerTest {
         assertThat(hearings.get(1).getHearingId()).as("Get second hearing id").isEqualTo(2);
     }
 
+
     @DisplayName("Should return a 404, with no publications")
     @Test
     public void publicationDoesNotExistTest() throws Exception {
