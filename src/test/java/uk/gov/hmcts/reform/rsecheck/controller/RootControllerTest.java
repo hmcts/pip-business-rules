@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.rsecheck.controller;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +26,7 @@ public class RootControllerTest {
     RootController rootController;
 
     @Test
+    @DisplayName("Tests that a 200 code is returned, with the correct response message")
     public void testWelcomeMessage() {
         ResponseEntity<String> welcomeResponse = rootController.welcome();
         assertEquals(HttpStatus.OK, welcomeResponse.getStatusCode(), "An OK response code is returned");
@@ -33,7 +35,8 @@ public class RootControllerTest {
     }
 
     @Test
-    public void testGetPublication() {
+    @DisplayName("Tests that a 200 code is returned, with a non null body")
+    public void testGetPublicationOkResponse() {
 
         int publicationId = 1;
 
@@ -46,6 +49,20 @@ public class RootControllerTest {
 
         assertEquals(HttpStatus.OK, publicationResponse.getStatusCode(), "An OK response code is returned");
         assertNotNull(publicationResponse.getBody(), "At least one publication is returned");
+    }
+
+    @Test
+    @DisplayName("Tests that the publication that is returned, matches the publication that was mocked")
+    public void testGetPublicationContainsExpectedBody() {
+
+        int publicationId = 1;
+
+        Publication publication = new Publication();
+        publication.setPublicationId(publicationId);
+
+        when(rulesService.getPublication(publicationId)).thenReturn(publication);
+
+        ResponseEntity<Publication> publicationResponse = rootController.getPublication(publicationId);
 
         Publication returnedPublication = publicationResponse.getBody();
         assertEquals(returnedPublication, publication, "The expected publication is returned");
