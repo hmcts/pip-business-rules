@@ -76,10 +76,10 @@ public class RootControllerTest {
     public void testPublicationNotFoundException() {
 
         int publicationId = 2;
-        String exceptionMessage = "Publication with ID has not been found";
+        String exceptionMessage = "Publication with ID " + publicationId + " has not been found";
 
         when(rulesService.getPublication(publicationId))
-            .thenThrow(new PublicationNotFoundException("Publication with ID has not been found"));
+            .thenThrow(new PublicationNotFoundException(exceptionMessage));
 
         PublicationNotFoundException publicationNotFoundException =
             assertThrows(PublicationNotFoundException.class, () -> rootController.getPublication(publicationId),
