@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.rsecheck.errorhandling;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.ExceptionResponse;
 
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ExceptionResponseTest {
 
     @Test
+    @DisplayName("Test that the creation of an ExceptionResponse, populates the expected fields")
     public void testCreationOfExceptionResponse() {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();

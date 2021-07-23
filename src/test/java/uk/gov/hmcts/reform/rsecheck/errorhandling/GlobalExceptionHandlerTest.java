@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.rsecheck.errorhandling;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class GlobalExceptionHandlerTest {
 
     @Test
+    @DisplayName("Test that the response entity returned from the exception handler, "
+        + "contains the expected status code and body")
     public void testHandleSubscriptionNotFoundMethod() {
 
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();

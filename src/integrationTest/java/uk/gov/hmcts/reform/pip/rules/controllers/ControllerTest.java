@@ -35,10 +35,10 @@ public class ControllerTest {
         assertThat(response.getResponse().getContentAsString()).startsWith("Welcome");
     }
 
-    @DisplayName("Should return a 200, and a list containing a single publication, with 1 court and 2 hearings")
+    @DisplayName("Should return a 200, and a list containing a single publication")
     @Test
-    public void publicationThatExistsTest() throws Exception {
-        MvcResult response = mockMvc.perform(get("/publication/1")).andExpect(status().isOk()).andReturn();
+    public void publicationThatExistsPublicationTest() throws Exception {
+        MvcResult response = mockMvc.perform(get("/publication/1")).andReturn();
 
         assertEquals(200, response.getResponse().getStatus(),
                      "Check that a 200 status is returned is returned");
@@ -51,20 +51,50 @@ public class ControllerTest {
         final int publicationID = 1;
         assertEquals(publicationID, publication.getPublicationId(), "Publication ID is " + publicationID);
         assertEquals(1, publication.getCourtHearingsList().size(), "The array contains a single publication");
+    }
+
+    @DisplayName("Should return a 200, with a publication that contains a single court list")
+    @Test
+    public void publicationThatExistsHearingsListTest() throws Exception {
+        MvcResult response = mockMvc.perform(get("/publication/1")).andReturn();
+
+        assertEquals(200, response.getResponse().getStatus(),
+                     "Check that a 200 status is returned is returned");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        Publication publication = objectMapper.readValue(
+            response.getResponse().getContentAsByteArray(), Publication.class);
 
         List<CourtHearings> courtHearingsList = publication.getCourtHearingsList();
         assertThat(courtHearingsList.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
+    }
 
-        List<Hearing> courtHearings = courtHearingsList.get(0).getHearingList();
-        assertThat(courtHearings.get(0).getHearingId()).as("Get first hearing id").isEqualTo(1);
-        assertThat(courtHearings.get(1).getHearingId()).as("Get second hearing id").isEqualTo(2);
+    @DisplayName("Should return a 200, with a publication that contains a multiple hearings")
+    @Test
+    public void publicationThatExistsHearingsTest() throws Exception {
+        MvcResult response = mockMvc.perform(get("/publication/1")).andReturn();
+
+        assertEquals(200, response.getResponse().getStatus(),
+                     "Check that a 200 status is returned is returned");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        Publication publication = objectMapper.readValue(
+            response.getResponse().getContentAsByteArray(), Publication.class);
+
+        List<CourtHearings> courtHearingsList = publication.getCourtHearingsList();
+        List<Hearing> hearings = courtHearingsList.get(0).getHearingList();
+
+        assertThat(hearings.get(0).getHearingId()).as("Get first hearing id").isEqualTo(1);
+        assertThat(hearings.get(1).getHearingId()).as("Get second hearing id").isEqualTo(2);
     }
 
 
     @DisplayName("Should return a 404, with no publications")
     @Test
     public void publicationDoesNotExistTest() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/publication/2")).andExpect(status().isNotFound()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(get("/publication/2")).andReturn();
         assertEquals(404, mvcResult.getResponse().getStatus(), "Check that the status is a 404");
     }
 

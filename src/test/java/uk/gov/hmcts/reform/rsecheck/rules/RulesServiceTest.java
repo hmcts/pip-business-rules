@@ -1,6 +1,6 @@
 package uk.gov.hmcts.reform.rsecheck.rules;
 
-
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,6 +27,7 @@ public class RulesServiceTest {
     private RulesService rulesService;
 
     @Test
+    @DisplayName("Tests that a publication is correct passed through from the rules service")
     public void testSuccessfulPublicationGet() {
 
         Publication publication = new Publication();
@@ -41,6 +42,7 @@ public class RulesServiceTest {
     }
 
     @Test
+    @DisplayName("Tests that when a publication is not found via the rules service, then an exception is thrown")
     public void testUnsuccessfulPublicationGet() {
 
         when(inMemoryRepository.getPublication(1)).thenReturn(Optional.empty());
