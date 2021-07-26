@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.pip.rules.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -18,6 +19,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * Default endpoints per application.
  */
 @RestController
+@Api(tags = "Business Rules root API")
 public class RootController {
 
     @Autowired
