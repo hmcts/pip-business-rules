@@ -30,8 +30,8 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
             .title("P&I Business Rules Service")
-            .description("Use this service to view rules applied to the withholding of information not yet ready for " +
-                             "release. You can find out more about how the code works at"
+            .description("Use this service to view rules applied to the withholding of information not yet ready for "
+                             + "release. You can find out more about how the code works at"
                              + " https://github.com/hmcts/pip-business-rules")
             .version("1.0.0")
             .contact(new Contact("P&I Team",
