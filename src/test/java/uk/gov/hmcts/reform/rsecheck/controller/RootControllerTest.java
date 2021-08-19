@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uk.gov.hmcts.reform.pip.rules.controllers.RootController;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.model.api.Publication;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

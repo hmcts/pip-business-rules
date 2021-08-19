@@ -2,9 +2,9 @@ package uk.gov.hmcts.reform.rsecheck.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
-import uk.gov.hmcts.reform.pip.rules.model.Hearing;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.model.api.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.api.Hearing;
+import uk.gov.hmcts.reform.pip.rules.model.api.Publication;
 import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
 
 import java.util.List;

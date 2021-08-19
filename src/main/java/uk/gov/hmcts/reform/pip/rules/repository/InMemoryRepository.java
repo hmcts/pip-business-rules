@@ -1,9 +1,9 @@
 package uk.gov.hmcts.reform.pip.rules.repository;
 
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
-import uk.gov.hmcts.reform.pip.rules.model.Hearing;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.model.api.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.api.Hearing;
+import uk.gov.hmcts.reform.pip.rules.model.api.Publication;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,6 +31,10 @@ public class InMemoryRepository {
             CourtHearings courtHearings = new CourtHearings();
             courtHearings.setCourtId(1);
             courtHearings.setName("This is a court");
+
+            CourtHearings courtHearings2 = new CourtHearings();
+            courtHearings2.setCourtId(1);
+            courtHearings2.setName("This is also a court");
 
             Hearing hearing = new Hearing();
             hearing.setHearingId(1);
@@ -62,6 +66,7 @@ public class InMemoryRepository {
 
             List<CourtHearings> courtHearingsList = new ArrayList<>();
             courtHearingsList.add(courtHearings);
+            courtHearingsList.add(courtHearings2);
 
             publication.setCourtHearingsList(new ArrayList<>(courtHearingsList));
             return Optional.of(publication);

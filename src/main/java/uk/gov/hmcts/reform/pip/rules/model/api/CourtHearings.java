@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.pip.rules.model;
+package uk.gov.hmcts.reform.pip.rules.model.api;
 
 import lombok.Data;
 

@@ -9,9 +9,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
-import uk.gov.hmcts.reform.pip.rules.model.Hearing;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.model.api.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.api.Hearing;
+import uk.gov.hmcts.reform.pip.rules.model.api.Publication;
 
 import java.util.List;
 
