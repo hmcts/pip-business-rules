@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.pip.rules.model;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,8 +22,38 @@ public class CourtHearings {
     private String name;
 
     /**
+     * The name of the jurisdiction
+     */
+    private String jurisdiction;
+
+    /**
+     * The name of the location
+     */
+    private String location;
+
+    /**
+     * Adding hearing to the hearing list
+     * @param hearing
+     */
+    public void addHearing(Hearing hearing) {
+        this.hearingList.add(hearing);
+        this.hearings = this.hearingList.size();
+    }
+
+    /**
      * The list of hearings in the court.
      */
-    private List<Hearing> hearingList;
+    private List<Hearing> hearingList = new ArrayList<>();
 
+
+    public void setHearingList(List<Hearing> hearingList) {
+        this.hearingList = hearingList;
+        this.hearings = this.hearingList.size();
+    }
+
+    /**
+     * Count of the hearings
+     */
+    private int hearings;
 }
+

@@ -6,16 +6,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
+import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
 import uk.gov.hmcts.reform.pip.rules.model.Publication;
 import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RulesServiceTest {
@@ -49,6 +53,89 @@ public class RulesServiceTest {
 
         assertThrows(PublicationNotFoundException.class, () -> rulesService.getPublication(1),
                      "Check that an exception is thrown if the publication isn't found");
+    }
+
+    @Test
+    @DisplayName("Tests that a court is correct passed through from the rules service")
+    public void testSuccessfulCourtGet() {
+
+        CourtHearings court = new CourtHearings();
+        court.setCourtId(1);
+
+        when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.of(court));
+
+        CourtHearings returnedCourt = rulesService.getCourt(1);
+
+        assertEquals(court, returnedCourt,
+                     "Check that the returned publication matches the created publication");
+    }
+
+    @Test
+    @DisplayName("Tests that when a court is not found via the rules service, then an exception is thrown")
+    public void testUnsuccessfulCourtGet() {
+
+        when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.empty());
+
+        assertThrows(CourtNotFoundException.class, () -> rulesService.getCourt(1),
+                     "Check that an exception is thrown if the publication isn't found");
+    }
+
+    @Test
+    @DisplayName("Tests that a list of courts with hearings for each court is correct passed through from the rules service and from the given input search")
+    public void testSuccessfulCourtListWithInputGet() {
+
+        List<CourtHearings> courts = new ArrayList<>();
+        CourtHearings court = new CourtHearings();
+        court.setName("anytext");
+        court.setCourtId(1);
+
+        courts.add(court);
+
+        when(inMemoryRepository.getCourtHearings()).thenReturn(courts);
+        when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.of(court));
+
+        List<CourtHearings> returnedCourt = rulesService.getCourtList("anytext");
+
+        assertEquals(courts, returnedCourt,
+                     "Check that the returned publication matches the created publication");
+    }
+
+    @Test
+    @DisplayName("Tests that when a court is not found via the rules service, then an exception is thrown")
+    public void testUnsuccessfulCourtListGet() {
+
+        List<CourtHearings> courts = new ArrayList<>();
+        CourtHearings court = new CourtHearings();
+        court.setName("anyothertext");
+        court.setCourtId(2);
+        courts.add(court);
+
+        when(inMemoryRepository.getCourtHearings(2)).thenReturn(Optional.empty());
+        when(inMemoryRepository.getCourtHearings()).thenReturn(courts);
+
+        assertThrows(CourtNotFoundException.class, () -> rulesService.getCourtList("anytext"),
+                     "Check that an exception is thrown if the court isn't found");
+    }
+
+    @Test
+    @DisplayName("Tests that a list of courts with hearings for each court is correct passed through from the rules service and from the given input search empty")
+    public void testSuccessfulCourtListAllWithInputEmptyGet() {
+
+        List<CourtHearings> courts = new ArrayList<>();
+        CourtHearings court = new CourtHearings();
+        court.setName("anytext");
+        court.setCourtId(1);
+
+        courts.add(court);
+
+        when(inMemoryRepository.getCourtHearings()).thenReturn(courts);
+
+
+        List<CourtHearings> returnedCourt = rulesService.getCourtList("");
+
+        assertEquals(courts, returnedCourt,
+                     "Check that the returned courts matches the created courts");
+        verify(inMemoryRepository, never()).getCourtHearings(1);
     }
 
 }

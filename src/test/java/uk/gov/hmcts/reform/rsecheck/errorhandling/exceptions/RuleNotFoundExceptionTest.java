@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.rsecheck.errorhandling.exceptions;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +16,11 @@ public class RuleNotFoundExceptionTest {
         PublicationNotFoundException publicationNotFoundException
             = new PublicationNotFoundException("This is a test message");
         assertEquals("This is a test message", publicationNotFoundException.getMessage(),
+                     "The message should match the message passed in");
+
+        CourtNotFoundException courtNotFoundException
+            = new CourtNotFoundException("This is a test message");
+        assertEquals("This is a test message", courtNotFoundException.getMessage(),
                      "The message should match the message passed in");
 
     }
