@@ -49,29 +49,7 @@ public class RootController {
     public ResponseEntity<String> welcome() {
         return ok("Welcome to pip-business-rules");
     }
-
-    /**
-     * This endpoint returns a publication, based on it's ID.
-     *
-     * <p>It will apply the business rules against the publication and requesting user,
-     * to understand whether they should see the requested publication.
-     *
-     * <p>If the user does not have permission to see the resource, or the resource is not found,
-     * then a 404 will be returned instead.
-     *
-     * @param id The ID of the publication to search for.
-     * @return The publication, if found.
-     */
-    @GetMapping("/publication/{id}")
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, response = String.class, message = "Publication has been found"),
-        @ApiResponse(code = 404, response = String.class, message = "Publication has not been found")
-    })
-    public ResponseEntity<Publication> getPublication(
-        @ApiParam(value = "The publication ID to retrieve", required = true) @PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK)
-            .body(rulesService.getPublication(id));
-    }
+    
 
     /**
      * This endpoint returns a court, based on it's ID.

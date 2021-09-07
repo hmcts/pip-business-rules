@@ -17,22 +17,6 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    /**
-     * Template exception handler, that handles a custom PublicationNotFoundException,
-     * and returns a 404 in the standard format.
-     * @param ex The exception that has been thrown.
-     * @return The error response, modelled using the ExceptionResponse object.
-     */
-    @ExceptionHandler(PublicationNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handlePublicationNotFound(
-        PublicationNotFoundException ex) {
-
-        ExceptionResponse exceptionResponse = new ExceptionResponse();
-        exceptionResponse.setMessage(ex.getMessage());
-        exceptionResponse.setTimestamp(LocalDateTime.now());
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
-    }
 
     /**
      * Template exception handler, that handles a custom CourtNotFoundException,
@@ -52,8 +36,8 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Template exception handler, that handles a custom CourtNotFoundException,
-     * and returns a 404 in the standard format.
+     * Template exception handler, that handles a custom ParseException,
+     * and returns a 500 in the standard format.
      * @param ex The exception that has been thrown.
      * @return The error response, modelled using the ExceptionResponse object.
      */
@@ -62,7 +46,7 @@ public class GlobalExceptionHandler {
         ParseException ex) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
-        exceptionResponse.setMessage(ex.getMessage());
+        exceptionResponse.setMessage("Failed to parse date");
         exceptionResponse.setTimestamp(LocalDateTime.now());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
