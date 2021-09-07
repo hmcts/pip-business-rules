@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.model.Hearing;
 import uk.gov.hmcts.reform.pip.rules.model.Publication;
 
@@ -50,7 +50,7 @@ public class ControllerTest {
 
         final int publicationID = 1;
         assertEquals(publicationID, publication.getPublicationId(), "Publication ID is " + publicationID);
-        assertEquals(1, publication.getCourtHearingsList().size(), "The array contains a single publication");
+        assertEquals(1, publication.getCourtList().size(), "The array contains a single publication");
     }
 
     @DisplayName("Should return a 200, with a publication that contains a single court list")
@@ -66,8 +66,8 @@ public class ControllerTest {
         Publication publication = objectMapper.readValue(
             response.getResponse().getContentAsByteArray(), Publication.class);
 
-        List<CourtHearings> courtHearingsList = publication.getCourtHearingsList();
-        assertThat(courtHearingsList.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
+        List<Court> courtList = publication.getCourtList();
+        assertThat(courtList.get(0).getCourtId()).as("Get first court id").isEqualTo(1);
     }
 
     @DisplayName("Should return a 200, with a publication that contains a multiple hearings")
@@ -83,8 +83,8 @@ public class ControllerTest {
         Publication publication = objectMapper.readValue(
             response.getResponse().getContentAsByteArray(), Publication.class);
 
-        List<CourtHearings> courtHearingsList = publication.getCourtHearingsList();
-        List<Hearing> hearings = courtHearingsList.get(0).getHearingList();
+        List<Court> courtList = publication.getCourtList();
+        List<Hearing> hearings = courtList.get(0).getHearingList();
 
         assertThat(hearings.get(0).getHearingId()).as("Get first hearing id").isEqualTo(1);
         assertThat(hearings.get(1).getHearingId()).as("Get second hearing id").isEqualTo(2);
@@ -108,7 +108,7 @@ public class ControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        CourtHearings court = objectMapper.readValue(response.getResponse().getContentAsByteArray(), CourtHearings.class);
+        Court court = objectMapper.readValue(response.getResponse().getContentAsByteArray(), Court.class);
 
         final int courtID = 1;
         assertEquals(courtID, court.getCourtId(), "Court ID is " + courtID);
@@ -134,7 +134,7 @@ public class ControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        CourtHearings[] courts = objectMapper.readValue(response.getResponse().getContentAsByteArray(), CourtHearings[].class);
+        Court[] courts = objectMapper.readValue(response.getResponse().getContentAsByteArray(), Court[].class);
 
         final int courtID = 1;
         assertEquals(courtID, courts[0].getCourtId(), "Court ID is " + courtID);
@@ -158,7 +158,7 @@ public class ControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        CourtHearings[] courts = objectMapper.readValue(response.getResponse().getContentAsByteArray(), CourtHearings[].class);
+        Court[] courts = objectMapper.readValue(response.getResponse().getContentAsByteArray(), Court[].class);
 
         final int courtID = 1;
         assertEquals(courtID, courts[0].getCourtId(), "Court ID is " + courtID);
@@ -175,7 +175,7 @@ public class ControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        CourtHearings court = objectMapper.readValue(response.getResponse().getContentAsByteArray(), CourtHearings.class);
+        Court court = objectMapper.readValue(response.getResponse().getContentAsByteArray(), Court.class);
 
         final int courtID = 1;
         assertEquals(courtID, court.getCourtId(), "Court ID is " + courtID);

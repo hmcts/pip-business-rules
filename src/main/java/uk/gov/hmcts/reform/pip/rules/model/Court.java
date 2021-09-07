@@ -9,7 +9,7 @@ import java.util.List;
  * Model which represents the list of hearings for a court.
  */
 @Data
-public class CourtHearings {
+public class Court {
 
     /**
      * The ID of the court.

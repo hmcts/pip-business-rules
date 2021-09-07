@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
-import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.model.Publication;
 import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
@@ -59,12 +59,12 @@ public class RulesServiceTest {
     @DisplayName("Tests that a court is correct passed through from the rules service")
     public void testSuccessfulCourtGet() {
 
-        CourtHearings court = new CourtHearings();
+        Court court = new Court();
         court.setCourtId(1);
 
         when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.of(court));
 
-        CourtHearings returnedCourt = rulesService.getCourt(1);
+        Court returnedCourt = rulesService.getCourt(1);
 
         assertEquals(court, returnedCourt,
                      "Check that the returned publication matches the created publication");
@@ -84,17 +84,17 @@ public class RulesServiceTest {
     @DisplayName("Tests that a list of courts with hearings for each court is correct passed through from the rules service and from the given input search")
     public void testSuccessfulCourtListWithInputGet() {
 
-        List<CourtHearings> courts = new ArrayList<>();
-        CourtHearings court = new CourtHearings();
+        List<Court> courts = new ArrayList<>();
+        Court court = new Court();
         court.setName("anytext");
         court.setCourtId(1);
 
         courts.add(court);
 
-        when(inMemoryRepository.getCourtHearings()).thenReturn(courts);
+        when(inMemoryRepository.getListCourts()).thenReturn(courts);
         when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.of(court));
 
-        List<CourtHearings> returnedCourt = rulesService.getCourtList("anytext");
+        List<Court> returnedCourt = rulesService.getCourtList("anytext");
 
         assertEquals(courts, returnedCourt,
                      "Check that the returned publication matches the created publication");
@@ -104,14 +104,14 @@ public class RulesServiceTest {
     @DisplayName("Tests that when a court is not found via the rules service, then an exception is thrown")
     public void testUnsuccessfulCourtListGet() {
 
-        List<CourtHearings> courts = new ArrayList<>();
-        CourtHearings court = new CourtHearings();
+        List<Court> courts = new ArrayList<>();
+        Court court = new Court();
         court.setName("anyothertext");
         court.setCourtId(2);
         courts.add(court);
 
         when(inMemoryRepository.getCourtHearings(2)).thenReturn(Optional.empty());
-        when(inMemoryRepository.getCourtHearings()).thenReturn(courts);
+        when(inMemoryRepository.getListCourts()).thenReturn(courts);
 
         assertThrows(CourtNotFoundException.class, () -> rulesService.getCourtList("anytext"),
                      "Check that an exception is thrown if the court isn't found");
@@ -121,17 +121,17 @@ public class RulesServiceTest {
     @DisplayName("Tests that a list of courts with hearings for each court is correct passed through from the rules service and from the given input search empty")
     public void testSuccessfulCourtListAllWithInputEmptyGet() {
 
-        List<CourtHearings> courts = new ArrayList<>();
-        CourtHearings court = new CourtHearings();
+        List<Court> courts = new ArrayList<>();
+        Court court = new Court();
         court.setName("anytext");
         court.setCourtId(1);
 
         courts.add(court);
 
-        when(inMemoryRepository.getCourtHearings()).thenReturn(courts);
+        when(inMemoryRepository.getListCourts()).thenReturn(courts);
 
 
-        List<CourtHearings> returnedCourt = rulesService.getCourtList("");
+        List<Court> returnedCourt = rulesService.getCourtList("");
 
         assertEquals(courts, returnedCourt,
                      "Check that the returned courts matches the created courts");

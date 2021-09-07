@@ -18,6 +18,6 @@ public class Publication {
     /**
      * The list of Court Hearings.
      */
-    private List<CourtHearings> courtHearingsList;
+    private List<Court> courtList;
 
 }

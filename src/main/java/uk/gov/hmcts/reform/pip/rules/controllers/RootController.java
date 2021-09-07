@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.hmcts.reform.pip.rules.model.CourtHearings;
+import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.model.Publication;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
@@ -90,7 +90,7 @@ public class RootController {
         @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
         @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
     })
-    public ResponseEntity<CourtHearings> getCourt(
+    public ResponseEntity<Court> getCourt(
         @ApiParam(value = "The court ID to retrieve", required = true) @PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK)
             .body(rulesService.getCourt(id));
@@ -113,7 +113,7 @@ public class RootController {
         @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
         @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
     })
-    public ResponseEntity<List<CourtHearings>> getCourtList(
+    public ResponseEntity<List<Court>> getCourtList(
         @ApiParam(value = "The input search to retrieve", required = true) @PathVariable String input) {
         return ResponseEntity.status(HttpStatus.OK)
             .body(rulesService.getCourtList(input));
@@ -135,7 +135,7 @@ public class RootController {
         @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
         @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
     })
-    public ResponseEntity<List<CourtHearings>> getCourtList() {
+    public ResponseEntity<List<Court>> getCourtList() {
         return ResponseEntity.status(HttpStatus.OK)
             .body(rulesService.getCourtList(""));
     }
@@ -157,21 +157,21 @@ public class RootController {
         @ApiResponse(code = 200, response = String.class, message = "hearings have been found"),
         @ApiResponse(code = 404, response = String.class, message = "hearings have not been found")
     })
-    public ResponseEntity<CourtHearings> getHearings(
+    public ResponseEntity<Court> getHearings(
         @ApiParam(value = "The court ID to retrieve", required = true) @PathVariable Integer id) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        String d1String = sdf.format(new Date());
-        Date d1 = sdf.parse(d1String);
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            String d1String = sdf.format(new Date());
+            Date d1 = sdf.parse(d1String);
+            LocalDateTime localDateTime = d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-        LocalDateTime localDateTime = d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            localDateTime = localDateTime.plusDays(1);
+            Date d2 = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 
-        localDateTime = localDateTime.plusDays(1);
-        Date d2 = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+            return ResponseEntity.status(HttpStatus.OK)
+                .body(rulesService.getHearings(id, d1, d2));
 
 
 
-        return ResponseEntity.status(HttpStatus.OK)
-            .body(rulesService.getHearings(id, d1, d2));
     }
 }
