@@ -49,7 +49,7 @@ public class RootController {
     public ResponseEntity<String> welcome() {
         return ok("Welcome to pip-business-rules");
     }
-    
+
 
     /**
      * This endpoint returns a court, based on it's ID.
@@ -136,20 +136,10 @@ public class RootController {
         @ApiResponse(code = 404, response = String.class, message = "hearings have not been found")
     })
     public ResponseEntity<Court> getHearings(
-        @ApiParam(value = "The court ID to retrieve", required = true) @PathVariable Integer id) throws ParseException {
-
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-            String d1String = sdf.format(new Date());
-            Date d1 = sdf.parse(d1String);
-            LocalDateTime localDateTime = d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-            localDateTime = localDateTime.plusDays(1);
-            Date d2 = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        @ApiParam(value = "The court ID to retrieve", required = true) @PathVariable Integer id) {
 
             return ResponseEntity.status(HttpStatus.OK)
-                .body(rulesService.getHearings(id, d1, d2));
-
-
+                .body(rulesService.getHearings(id));
 
     }
 }

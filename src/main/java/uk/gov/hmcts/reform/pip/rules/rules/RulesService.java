@@ -77,7 +77,7 @@ public class RulesService {
      * @param courtId The ID of the publication to get.
      * @return The court itself, if it passes the business rules and is found.
      */
-    public Court getHearings(Integer courtId, Date startDate, Date endDate) {
+    public Court getHearings(Integer courtId) {
 
 
         Optional<Court> courtOptional = inMemoryRepository.getCourtHearings(courtId);
