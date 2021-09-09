@@ -86,11 +86,11 @@ public class RulesServiceTest {
         court.setCourtId(2);
         courts.add(court);
 
-        when(inMemoryRepository.getCourtHearings(2)).thenReturn(Optional.empty());
-        when(inMemoryRepository.getListCourts()).thenReturn(courts);
+       when(inMemoryRepository.getListCourts()).thenReturn(courts);
 
-        assertThrows(CourtNotFoundException.class, () -> rulesService.getCourtList("anytext"),
-                     "Check that an exception is thrown if the court isn't found");
+
+       assertThrows(CourtNotFoundException.class, () -> rulesService.getCourtList("anytext"),
+                    "Check that an exception is thrown if the court isn't found");
     }
 
     @Test
@@ -105,13 +105,13 @@ public class RulesServiceTest {
         courts.add(court);
 
         when(inMemoryRepository.getListCourts()).thenReturn(courts);
-
+        when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.of(court));
 
         List<Court> returnedCourt = rulesService.getCourtList("");
 
+
         assertEquals(courts, returnedCourt,
                      "Check that the returned courts matches the created courts");
-        verify(inMemoryRepository, never()).getCourtHearings(1);
     }
 
 }

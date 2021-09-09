@@ -11,14 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.reform.pip.rules.model.Court;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -29,8 +24,6 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @Api(tags = "Business Rules root API")
 public class RootController {
-
-    private static final String DATE_FORMAT = "dd/MM/yyyy";
 
     @Autowired
     RulesService rulesService;

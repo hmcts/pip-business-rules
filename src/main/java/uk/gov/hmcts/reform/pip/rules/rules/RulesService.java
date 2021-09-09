@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.pip.rules.rules;
 
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
@@ -8,9 +9,12 @@ import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.model.Hearing;
 import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * A service to handle the business logic to validate whether a user has access to a publication,
@@ -49,13 +53,12 @@ public class RulesService {
         if(!input.isEmpty())
         {
             String finalInput = input.toLowerCase();
-            Stream<Court> streamCourt = courts.stream().filter(c -> c.getName().toLowerCase().contains(finalInput)
-                || c.getJurisdiction().contains(finalInput)
-                || c.getLocation().contains(finalInput));
-            if (streamCourt != null) {
-                courts = streamCourt
-                    .collect(Collectors.toList());
-            }
+            courts = courts.stream()
+                .filter(c -> !Strings.isNullOrEmpty(c.getName()) && c.getName().toLowerCase().contains(finalInput)
+                || !Strings.isNullOrEmpty(c.getJurisdiction()) && c.getJurisdiction().toLowerCase().contains(finalInput)
+                || !Strings.isNullOrEmpty(c.getLocation()) && c.getLocation().toLowerCase().contains(finalInput))
+                .collect(Collectors.toList());
+
         }
         for (Court court : courts ) {
             Optional<Court> courtWithHearings = inMemoryRepository.getCourtHearings(court.getCourtId());
