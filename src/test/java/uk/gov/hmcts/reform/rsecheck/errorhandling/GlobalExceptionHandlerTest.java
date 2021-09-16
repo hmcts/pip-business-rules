@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.ExceptionResponse;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.GlobalExceptionHandler;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
-import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

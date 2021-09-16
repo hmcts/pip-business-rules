@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
-import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;

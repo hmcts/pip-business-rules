@@ -9,7 +9,6 @@ import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.model.Hearing;
 import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
 
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -32,7 +31,6 @@ public class RulesService {
      * @return The court itself, if it passes the business rules and is found.
      */
     public Court getCourt(Integer courtId) {
-
         Optional<Court> courtWithHearings = inMemoryRepository.getCourtHearings(courtId);
         if (courtWithHearings.isPresent()) {
             return courtWithHearings.get();
@@ -47,25 +45,23 @@ public class RulesService {
      * @return The list of court itself, if it passes the business rules and is found.
      */
     public List<Court> getCourtList(String input) {
-
         List<Court> courts = inMemoryRepository.getListCourts();
         List<Court> courtsWithHearings = new ArrayList<>();
-        if(!input.isEmpty())
-        {
+        if (!input.isEmpty()) {
             String finalInput = input.toLowerCase();
             courts = courts.stream()
                 .filter(c -> !Strings.isNullOrEmpty(c.getName()) && c.getName().toLowerCase().contains(finalInput)
                 || !Strings.isNullOrEmpty(c.getJurisdiction()) && c.getJurisdiction().toLowerCase().contains(finalInput)
                 || !Strings.isNullOrEmpty(c.getLocation()) && c.getLocation().toLowerCase().contains(finalInput))
                 .collect(Collectors.toList());
-
         }
-        for (Court court : courts ) {
+
+        for (Court court: courts) {
             Optional<Court> courtWithHearings = inMemoryRepository.getCourtHearings(court.getCourtId());
-            if (courtWithHearings.isPresent())
+            if (courtWithHearings.isPresent()) {
                 courtsWithHearings.add(courtWithHearings.get());
+            }
         }
-
 
         if (courtsWithHearings.size() > 0) {
             return courtsWithHearings;
@@ -81,8 +77,6 @@ public class RulesService {
      * @return The court itself, if it passes the business rules and is found.
      */
     public Court getHearings(Integer courtId) {
-
-
         Optional<Court> courtOptional = inMemoryRepository.getCourtHearings(courtId);
         Court court = courtOptional.get();
 
@@ -91,9 +85,9 @@ public class RulesService {
         // filter hearingList for today date
         //TODO: The following code is commented out for testing purpose. It will be used at later stage
 
-//        unsortedList = unsortedList.stream().filter(h -> h.getDate()
-//            .after(startDate) && h.getDate().before(endDate))
-//            .collect(Collectors.toList());
+        //unsortedList = unsortedList.stream().filter(h -> h.getDate()
+        //    .after(startDate) && h.getDate().before(endDate))
+        //    .collect(Collectors.toList());
 
         // order by CourtNumber the hearings
         unsortedList.sort(Comparator.comparing(Hearing::getCourtNumber));

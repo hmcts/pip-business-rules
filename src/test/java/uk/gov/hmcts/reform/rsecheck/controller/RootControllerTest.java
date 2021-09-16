@@ -9,14 +9,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uk.gov.hmcts.reform.pip.rules.controllers.RootController;
-import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class RootControllerTest {

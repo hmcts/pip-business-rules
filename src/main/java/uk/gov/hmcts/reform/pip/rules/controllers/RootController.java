@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
-
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -56,7 +55,7 @@ public class RootController {
      * @param id The ID of the court to search for.
      * @return The court, if found.
      */
-    @GetMapping("/court/{id}")
+    @GetMapping("/api/court/{id}")
     @ApiResponses(value = {
         @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
         @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
@@ -79,7 +78,7 @@ public class RootController {
      * @param input The ID of the court to search for.
      * @return The court, if found.
      */
-    @GetMapping("/courtlist/{input}")
+    @GetMapping("/api/courtlist/{input}")
     @ApiResponses(value = {
         @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
         @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
@@ -101,7 +100,7 @@ public class RootController {
      *
      * @return The list of all courts, if found.
      */
-    @GetMapping("/courtlistall")
+    @GetMapping("/api/courtlistall")
     @ApiResponses(value = {
         @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
         @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
@@ -123,7 +122,7 @@ public class RootController {
      * @param id The ID of the court to search for.
      * @return The hearings list, if found.
      */
-    @GetMapping("/hearings/{id}")
+    @GetMapping("/api/hearings/{id}")
     @ApiResponses(value = {
         @ApiResponse(code = 200, response = String.class, message = "hearings have been found"),
         @ApiResponse(code = 404, response = String.class, message = "hearings have not been found")
@@ -131,8 +130,8 @@ public class RootController {
     public ResponseEntity<Court> getHearings(
         @ApiParam(value = "The court ID to retrieve", required = true) @PathVariable Integer id) {
 
-            return ResponseEntity.status(HttpStatus.OK)
-                .body(rulesService.getHearings(id));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(rulesService.getHearings(id));
 
     }
 }

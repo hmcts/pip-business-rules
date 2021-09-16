@@ -22,18 +22,18 @@ public class Court {
     private String name;
 
     /**
-     * The name of the jurisdiction
+     * The name of the jurisdiction.
      */
     private String jurisdiction;
 
     /**
-     * The name of the location
+     * The name of the location.
      */
     private String location;
 
     /**
-     * Adding hearing to the hearing list
-     * @param hearing
+     * Adding hearing to the hearing list.
+     * @param hearing hearing to add.
      */
     public void addHearing(Hearing hearing) {
         this.hearingList.add(hearing);
@@ -52,7 +52,7 @@ public class Court {
     }
 
     /**
-     * Count of the hearings
+     * Count of the hearings.
      */
     private int hearings;
 }

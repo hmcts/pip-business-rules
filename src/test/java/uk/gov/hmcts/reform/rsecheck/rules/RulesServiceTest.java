@@ -7,9 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
-import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
 import uk.gov.hmcts.reform.pip.rules.model.Court;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
 import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
@@ -19,7 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class RulesServiceTest {
@@ -57,7 +55,8 @@ public class RulesServiceTest {
     }
 
     @Test
-    @DisplayName("Tests that a list of courts with hearings for each court is correct passed through from the rules service and from the given input search")
+    @DisplayName("Tests that a list of courts with hearings "
+         + "for each court is correct passed through from the rules service and from the given input search")
     public void testSuccessfulCourtListWithInputGet() {
 
         List<Court> courts = new ArrayList<>();
@@ -86,15 +85,15 @@ public class RulesServiceTest {
         court.setCourtId(2);
         courts.add(court);
 
-       when(inMemoryRepository.getListCourts()).thenReturn(courts);
+        when(inMemoryRepository.getListCourts()).thenReturn(courts);
 
-
-       assertThrows(CourtNotFoundException.class, () -> rulesService.getCourtList("anytext"),
+        assertThrows(CourtNotFoundException.class, () -> rulesService.getCourtList("anytext"),
                     "Check that an exception is thrown if the court isn't found");
     }
 
     @Test
-    @DisplayName("Tests that a list of courts with hearings for each court is correct passed through from the rules service and from the given input search empty")
+    @DisplayName("Tests that a list of courts with hearings "
+        + "for each court is correct passed through from the rules service and from the given input search empty")
     public void testSuccessfulCourtListAllWithInputEmptyGet() {
 
         List<Court> courts = new ArrayList<>();

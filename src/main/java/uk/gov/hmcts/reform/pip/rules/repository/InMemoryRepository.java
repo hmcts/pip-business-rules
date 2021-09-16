@@ -4,10 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.model.Hearing;
-//
+
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * A dummy repository, that returns courts and hearings randomly generated
+ * A dummy repository, that returns courts and hearings randomly generated.
  */
 @Component
 public class InMemoryRepository {
@@ -24,15 +23,17 @@ public class InMemoryRepository {
 
     private List<Hearing>  listHearings;
 
+    private final String mockPath = "src/main/java/uk/gov/hmcts/reform/pip/rules/repository/mocks/";
+
     public InMemoryRepository() throws IOException {
 
         ObjectMapper om = new ObjectMapper().setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
 
-        File fileHearings = new File("src/main/java/uk/gov/hmcts/reform/pip/rules/repository/mocks/hearingsList.json");
+        File fileHearings = new File(mockPath + "hearingsList.json");
         Hearing[] list = om.readValue(fileHearings, Hearing[].class);
         this.listHearings = Arrays.asList(list);
 
-        File fileCourts = new File("src/main/java/uk/gov/hmcts/reform/pip/rules/repository/mocks/courtsAndHearingsCount.json");
+        File fileCourts = new File(mockPath + "courtsAndHearingsCount.json");
         Court[] courts = om.readValue(fileCourts, Court[].class);
 
         this.listCourts = Arrays.asList(courts);
@@ -45,28 +46,22 @@ public class InMemoryRepository {
      * @param courtId The ID of the court.
      * @return The court hearings to return, if found.
      */
-    public Optional<Court> getCourtHearings(Integer courtId)
-    {
+    public Optional<Court> getCourtHearings(Integer courtId) {
         Court court = this.listCourts.stream()
             .filter(c -> courtId.equals(c.getCourtId()))
             .findAny()
             .orElse(null);
 
         if (court != null) {
-
             List<Hearing> listHearings = this.getHearings(courtId);
-
             court.setHearingList(listHearings);
             return Optional.of(court);
-        }
-        else {
+        } else {
             return Optional.empty();
         }
-
     }
 
-    private List<Hearing> getHearings(Integer courtId)
-    {
+    private List<Hearing> getHearings(Integer courtId) {
         List<Hearing> listHearings = this.listHearings.stream()
             .filter(h -> h.getCourtId() == courtId)
             .collect(Collectors.toList());

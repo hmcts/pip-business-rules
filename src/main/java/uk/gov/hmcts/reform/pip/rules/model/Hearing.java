@@ -2,17 +2,8 @@ package uk.gov.hmcts.reform.pip.rules.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.OffsetTime;
-import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -34,7 +25,7 @@ public class Hearing {
     private Integer courtId;
 
     /**
-     * The number for the court
+     * The number for the court.
      */
     @JsonProperty
     private Integer courtNumber;
@@ -54,7 +45,7 @@ public class Hearing {
     private String judge;
 
     /**
-     * The platform for the hearing (e.g Skype, Teams etc)
+     * The platform for the hearing (e.g Skype, Teams etc).
      */
     @JsonProperty
     private String platform;
