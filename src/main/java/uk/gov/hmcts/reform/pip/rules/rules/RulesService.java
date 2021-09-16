@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
-import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
 import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.model.Hearing;
 import uk.gov.hmcts.reform.pip.rules.repository.InMemoryRepository;
@@ -78,8 +77,7 @@ public class RulesService {
      */
     public Court getHearings(Integer courtId) {
         Optional<Court> courtOptional = inMemoryRepository.getCourtHearings(courtId);
-        if (courtOptional.isPresent())
-        {
+        if (courtOptional.isPresent()) {
             Court court = courtOptional.get();
 
             List<Hearing> unsortedList = court.getHearingList();
