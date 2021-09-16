@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    public static final String DATE_PARSE_ERROR_MESSAGE = "Failed to parse date";
 
     /**
      * Template exception handler, that handles a custom CourtNotFoundException,
@@ -45,10 +46,9 @@ public class GlobalExceptionHandler {
         ParseException ex) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
-        exceptionResponse.setMessage("Failed to parse date");
+        exceptionResponse.setMessage(DATE_PARSE_ERROR_MESSAGE);
         exceptionResponse.setTimestamp(LocalDateTime.now());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
     }
-
 }

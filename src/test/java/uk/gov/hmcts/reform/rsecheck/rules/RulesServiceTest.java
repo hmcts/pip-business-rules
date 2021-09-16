@@ -112,6 +112,4 @@ public class RulesServiceTest {
         assertEquals(courts, returnedCourt,
                      "Check that the returned courts matches the created courts");
     }
-
 }
-
