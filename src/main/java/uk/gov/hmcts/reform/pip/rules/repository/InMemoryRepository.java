@@ -23,7 +23,7 @@ public class InMemoryRepository {
 
     private List<Hearing>  listHearings;
 
-    private final String mockPath = "src/main/java/uk/gov/hmcts/reform/pip/rules/repository/mocks/";
+    private final static String mockPath = "src/main/java/uk/gov/hmcts/reform/pip/rules/repository/mocks/";
 
     public InMemoryRepository() throws IOException {
 
@@ -53,8 +53,8 @@ public class InMemoryRepository {
             .orElse(null);
 
         if (court != null) {
-            List<Hearing> listHearings = this.getHearings(courtId);
-            court.setHearingList(listHearings);
+            List<Hearing> hearings = this.getHearings(courtId);
+            court.setHearingList(hearings);
             return Optional.of(court);
         } else {
             return Optional.empty();
@@ -62,11 +62,9 @@ public class InMemoryRepository {
     }
 
     private List<Hearing> getHearings(Integer courtId) {
-        List<Hearing> listHearings = this.listHearings.stream()
-            .filter(h -> h.getCourtId() == courtId)
+        return this.listHearings.stream()
+            .filter(h -> h.getCourtId().equals(courtId))
             .collect(Collectors.toList());
-
-        return listHearings;
     }
 
     public List<Court> getListCourts() {

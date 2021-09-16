@@ -31,7 +31,7 @@ public class RulesServiceTest {
 
     @Test
     @DisplayName("Tests that a court is correct passed through from the rules service")
-    public void testSuccessfulCourtGet() {
+    protected void testSuccessfulCourtGet() {
 
         Court court = new Court();
         court.setCourtId(1);
@@ -46,7 +46,7 @@ public class RulesServiceTest {
 
     @Test
     @DisplayName("Tests that when a court is not found via the rules service, then an exception is thrown")
-    public void testUnsuccessfulCourtGet() {
+    protected void testUnsuccessfulCourtGet() {
 
         when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.empty());
 
@@ -57,7 +57,7 @@ public class RulesServiceTest {
     @Test
     @DisplayName("Tests that a list of courts with hearings "
          + "for each court is correct passed through from the rules service and from the given input search")
-    public void testSuccessfulCourtListWithInputGet() {
+    protected void testSuccessfulCourtListWithInputGet() {
 
         List<Court> courts = new ArrayList<>();
         Court court = new Court();
@@ -77,7 +77,7 @@ public class RulesServiceTest {
 
     @Test
     @DisplayName("Tests that when a court is not found via the rules service, then an exception is thrown")
-    public void testUnsuccessfulCourtListGet() {
+    protected void testUnsuccessfulCourtListGet() {
 
         List<Court> courts = new ArrayList<>();
         Court court = new Court();
@@ -94,7 +94,7 @@ public class RulesServiceTest {
     @Test
     @DisplayName("Tests that a list of courts with hearings "
         + "for each court is correct passed through from the rules service and from the given input search empty")
-    public void testSuccessfulCourtListAllWithInputEmptyGet() {
+    protected void testSuccessfulCourtListAllWithInputEmptyGet() {
 
         List<Court> courts = new ArrayList<>();
         Court court = new Court();

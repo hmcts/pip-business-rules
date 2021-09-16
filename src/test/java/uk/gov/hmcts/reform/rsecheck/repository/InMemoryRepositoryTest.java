@@ -23,7 +23,7 @@ public class InMemoryRepositoryTest {
 
     @Test
     @DisplayName("Tests that a court is returned with the correct ID and list of hearings")
-    public void courtThatExistsCourtReturnedOk() {
+    protected void courtThatExistsCourtReturnedOk() {
         Optional<Court> courtOptional = inMemoryRepository.getCourtHearings(1);
         assertTrue(courtOptional.isPresent(), "Check that a court has been returned");
 
@@ -37,7 +37,7 @@ public class InMemoryRepositoryTest {
 
     @Test
     @DisplayName("Tests that a hearings list within the response, contains a single court")
-    public void courtThatExistsHearingsListReturned() {
+    protected void courtThatExistsHearingsListReturned() {
         Optional<Court> courtOptional = inMemoryRepository.getCourtHearings(1);
         assertTrue(courtOptional.isPresent(), "Check that a court has been returned");
 
@@ -49,7 +49,7 @@ public class InMemoryRepositoryTest {
 
     @Test
     @DisplayName("Tests that a hearings list within the response, contains two hearings")
-    public void courtThatExistsHearingsReturnedOk() {
+    protected void courtThatExistsHearingsReturnedOk() {
         Optional<Court> courtOptional = inMemoryRepository.getCourtHearings(1);
         assertTrue(courtOptional.isPresent(), "Check that a court has been returned");
 
@@ -66,7 +66,7 @@ public class InMemoryRepositoryTest {
 
     @Test
     @DisplayName("Tests that when a court does not exist, no court is returned")
-    public void courtDoesNotExistTest() {
+    protected void courtDoesNotExistTest() {
         Optional<Court> courtOptional = inMemoryRepository.getCourtHearings(1232);
         assertTrue(courtOptional.isEmpty(), "Check that no publication is returned");
     }

@@ -63,7 +63,7 @@ public class RulesService {
             }
         }
 
-        if (courtsWithHearings.size() > 0) {
+        if (!courtsWithHearings.isEmpty()) {
             return courtsWithHearings;
         } else {
             throw new CourtNotFoundException(String.format("Courts with input search %s not found", input));
@@ -78,25 +78,25 @@ public class RulesService {
      */
     public Court getHearings(Integer courtId) {
         Optional<Court> courtOptional = inMemoryRepository.getCourtHearings(courtId);
-        Court court = courtOptional.get();
+        if (courtOptional.isPresent())
+        {
+            Court court = courtOptional.get();
 
-        List<Hearing> unsortedList = court.getHearingList();
+            List<Hearing> unsortedList = court.getHearingList();
 
-        // filter hearingList for today date
-        //TODO: The following code is commented out for testing purpose. It will be used at later stage
+            // filter hearingList for today date
+            //TODO: The following code is commented out for testing purpose. It will be used at later stage
+            //unsortedList = unsortedList.stream().filter(h -> h.getDate()
+            //    .after(startDate) && h.getDate().before(endDate))
+            //    .collect(Collectors.toList());
 
-        //unsortedList = unsortedList.stream().filter(h -> h.getDate()
-        //    .after(startDate) && h.getDate().before(endDate))
-        //    .collect(Collectors.toList());
+            // order by CourtNumber the hearings
+            unsortedList.sort(Comparator.comparing(Hearing::getCourtNumber));
+            court.setHearingList(unsortedList);
 
-        // order by CourtNumber the hearings
-        unsortedList.sort(Comparator.comparing(Hearing::getCourtNumber));
-        court.setHearingList(unsortedList);
-
-        if (courtOptional.isPresent()) {
             return court;
         } else {
-            throw new PublicationNotFoundException(String.format("Court with ID %s not found", courtId));
+            throw new CourtNotFoundException(String.format("Court with ID %s not found", courtId));
         }
     }
 }
