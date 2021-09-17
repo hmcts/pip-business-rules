@@ -28,8 +28,10 @@ public class GlobalExceptionHandlerTest {
         ResponseEntity<ExceptionResponse> responseCourtEntity =
             globalExceptionHandler.handleCourtNotFound(courtNotFoundException);
 
-        assertEquals(HttpStatus.NOT_FOUND, responseCourtEntity.getStatusCode(), "Status code should be not found");
-        assertNotNull(responseCourtEntity.getBody(), "Response should contain a body");
+        assertEquals(HttpStatus.NOT_FOUND, responseCourtEntity.getStatusCode(),
+                     "Status code should be not found");
+        assertNotNull(responseCourtEntity.getBody(),
+                      "Response should contain a body");
         assertEquals("This is a test message for court", responseCourtEntity.getBody().getMessage(),
                      "The message should match the message passed in");
 
@@ -39,7 +41,8 @@ public class GlobalExceptionHandlerTest {
         ResponseEntity<ExceptionResponse> responseParseEntity =
             globalExceptionHandler.handleParseException(parseException);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseParseEntity.getStatusCode(), "Status code should be not found");
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseParseEntity.getStatusCode(),
+                     "Status code should be not found");
         assertNotNull(responseParseEntity.getBody(), "Response should contain a body");
         assertEquals("Failed to parse date", responseParseEntity.getBody().getMessage(),
                      "The message should match the message passed in");

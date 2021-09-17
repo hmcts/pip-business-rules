@@ -161,8 +161,6 @@ public class RulesServiceTest {
     @DisplayName("Tests that a court with hearings "
         + " is correct passed through from the rules service and from the passed court id")
     protected void testSuccessfulCourtListWithHearingsGet() {
-
-        List<Court> courts = new ArrayList<>();
         Court court = new Court();
         court.setLocation("anytext");
         court.setCourtId(1);
@@ -177,6 +175,7 @@ public class RulesServiceTest {
         List<Hearing> hearings = new ArrayList<>();
         hearings.add(hearing);
         court.setHearingList(hearings);
+        List<Court> courts = new ArrayList<>();
         courts.add(court);
 
         when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.of(court));
@@ -190,11 +189,10 @@ public class RulesServiceTest {
     @Test
     @DisplayName("Tests that when a court is not found via the rules service, then an exception is thrown")
     protected void testUnsuccessfulGetHearings() {
-
-        List<Court> courts = new ArrayList<>();
         Court court = new Court();
         court.setName("anyothertext");
         court.setCourtId(2);
+        List<Court> courts = new ArrayList<>();
         courts.add(court);
 
         when(inMemoryRepository.getCourtHearings(1)).thenReturn(Optional.empty());

@@ -57,7 +57,8 @@ public class RootControllerTest {
     }
 
     @Test
-    @DisplayName("Tests that a 200 code is returned, with a court list is returned for an empty search input")
+    @DisplayName("Tests that a 200 code is returned, with a court list "
+        + "is returned for an empty search input")
     public void testGetCourtListAll() {
         List<Court> courts = new ArrayList<>();
         Court court = new Court();
@@ -76,9 +77,9 @@ public class RootControllerTest {
 
 
     @Test
-    @DisplayName("Tests that a 200 code is returned, with the correct response message and a court is returned and the hearings list is returned")
+    @DisplayName("Tests that a 200 code is returned, with the correct response message "
+        + "and a court is returned and the hearings list is returned")
     public void testGetHearings() {
-        List<Court> courts = new ArrayList<>();
         Court court = new Court();
         court.setName("sometext");
         court.setCourtId(1);
@@ -93,6 +94,7 @@ public class RootControllerTest {
         List<Hearing> hearings = new ArrayList<>();
         hearings.add(hearing);
         court.setHearingList(hearings);
+        List<Court> courts = new ArrayList<>();
         courts.add(court);
 
         when(rulesService.getHearings(1)).thenReturn(court);
