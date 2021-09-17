@@ -32,15 +32,6 @@ public class Court {
     private String location;
 
     /**
-     * Adding hearing to the hearing list.
-     * @param hearing hearing to add.
-     */
-    public void addHearing(Hearing hearing) {
-        this.hearingList.add(hearing);
-        this.hearings = this.hearingList.size();
-    }
-
-    /**
      * The list of hearings in the court.
      */
     private List<Hearing> hearingList = new ArrayList<>();

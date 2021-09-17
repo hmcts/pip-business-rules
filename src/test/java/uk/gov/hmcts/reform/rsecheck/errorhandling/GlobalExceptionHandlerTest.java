@@ -8,6 +8,8 @@ import uk.gov.hmcts.reform.pip.rules.errorhandling.ExceptionResponse;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.GlobalExceptionHandler;
 import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
 
+import java.text.ParseException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -29,6 +31,17 @@ public class GlobalExceptionHandlerTest {
         assertEquals(HttpStatus.NOT_FOUND, responseCourtEntity.getStatusCode(), "Status code should be not found");
         assertNotNull(responseCourtEntity.getBody(), "Response should contain a body");
         assertEquals("This is a test message for court", responseCourtEntity.getBody().getMessage(),
+                     "The message should match the message passed in");
+
+        ParseException parseException
+            = new ParseException("This is a test message for parse exception", 56);
+
+        ResponseEntity<ExceptionResponse> responseParseEntity =
+            globalExceptionHandler.handleParseException(parseException);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseParseEntity.getStatusCode(), "Status code should be not found");
+        assertNotNull(responseParseEntity.getBody(), "Response should contain a body");
+        assertEquals("Failed to parse date", responseParseEntity.getBody().getMessage(),
                      "The message should match the message passed in");
     }
 }

@@ -71,5 +71,13 @@ public class InMemoryRepositoryTest {
         assertTrue(courtOptional.isEmpty(), "Check that no publication is returned");
     }
 
+    @Test
+    @DisplayName("Tests that a court list within the response")
+    protected void courtListReturnedOk() {
+        List<Court> courts = inMemoryRepository.getListCourts();
+        assertTrue(!courts.isEmpty(), "Check that a court list has been returned");
+
+    }
+
 
 }

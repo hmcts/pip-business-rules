@@ -42,30 +42,6 @@ public class RootController {
         return ok("Welcome to pip-business-rules");
     }
 
-
-    /**
-     * This endpoint returns a court, based on it's ID.
-     *
-     * <p>It will apply the business rules against the court and requesting user,
-     * to understand whether they should see the requested court.
-     *
-     * <p>If the user does not have permission to see the resource, or the resource is not found,
-     * then a 404 will be returned instead.
-     *
-     * @param id The ID of the court to search for.
-     * @return The court, if found.
-     */
-    @GetMapping("/api/court/{id}")
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
-        @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
-    })
-    public ResponseEntity<Court> getCourt(
-        @ApiParam(value = "The court ID to retrieve", required = true) @PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK)
-            .body(rulesService.getCourt(id));
-    }
-
     /**
      * This endpoint returns a court list, based on input search.
      *

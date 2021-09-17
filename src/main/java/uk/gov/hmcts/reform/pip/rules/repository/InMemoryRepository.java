@@ -23,7 +23,7 @@ public class InMemoryRepository {
 
     private List<Hearing>  listHearings;
 
-    private static String mockPath = "src/main/java/uk/gov/hmcts/reform/pip/rules/repository/mocks/";
+    private static final String mockPath = "src/main/java/uk/gov/hmcts/reform/pip/rules/repository/mocks/";
 
     public InMemoryRepository() throws IOException {
 
