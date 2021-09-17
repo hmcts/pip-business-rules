@@ -2,7 +2,7 @@ java:
   aadIdentityName: pip
   ingressHost: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
   applicationPort: 8080
-  image: 'hmctspublic.azurecr.io/pip-business-rules:latest'
+  image: 'sdshmctspublic.azurecr.io/pip/business-rules:latest'
 
 #  Uncomment once the vault containing the app insights key has been set up
 #  keyVaults:

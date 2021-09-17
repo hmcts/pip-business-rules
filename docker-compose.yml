@@ -9,7 +9,7 @@ services:
         - https_proxy
         - no_proxy
         - APP
-    image: hmctspublic.azurecr.io/pip-business-rules
+    image: sdshmctspublic.azurecr.io/pip/business-rules
     environment:
       # these environment variables are used by java-logging library
       - ROOT_APPENDER
@@ -24,4 +24,4 @@ services:
       - LOGBACK_REQUIRE_ALERT_LEVEL=false
       - LOGBACK_REQUIRE_ERROR_CODE=false
     ports:
-      - 8080
+      - $SERVER_PORT:$SERVER_PORT
