@@ -7,6 +7,7 @@ import uk.gov.hmcts.reform.pip.rules.model.Hearing;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -29,11 +30,12 @@ public class InMemoryRepository {
 
         ObjectMapper om = new ObjectMapper().setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
 
-        File fileHearings = new File(mockPath + "hearingsList.json");
+        InputStream fileHearings = getClass().getClassLoader().getResourceAsStream("hearingsList.json");
+        //File fileHearings = new File(mockPath + "hearingsList.json");
         Hearing[] list = om.readValue(fileHearings, Hearing[].class);
         this.listHearings = Arrays.asList(list);
 
-        File fileCourts = new File(mockPath + "courtsAndHearingsCount.json");
+        InputStream fileCourts = getClass().getClassLoader().getResourceAsStream("courtsAndHearingsCount.json");
         Court[] courts = om.readValue(fileCourts, Court[].class);
 
         this.listCourts = Arrays.asList(courts);
