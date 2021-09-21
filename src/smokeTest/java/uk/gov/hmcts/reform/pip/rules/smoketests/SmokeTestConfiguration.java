@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.finrem.caseorchestration.smoketests;
+package uk.gov.hmcts.reform.pip.rules.smoketests;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;

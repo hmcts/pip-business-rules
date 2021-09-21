@@ -21,7 +21,4 @@ withPipeline(type, product, component) {
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableApiGatewayTest()
-  onNonPR() {
-    //loadVaultSecrets(apiTestSecrets)
-  }
 }
