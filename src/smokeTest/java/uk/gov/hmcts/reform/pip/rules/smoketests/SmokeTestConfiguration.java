@@ -8,7 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 public class SmokeTestConfiguration {
 
     @Test
-    @DisplayName("Smoke Test")
     public void test() {
         assertEquals(1, 1,
                      "Tested");
