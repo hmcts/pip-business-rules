@@ -21,5 +21,4 @@ withPipeline(type, product, component) {
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableApiGatewayTest()
-
 }
