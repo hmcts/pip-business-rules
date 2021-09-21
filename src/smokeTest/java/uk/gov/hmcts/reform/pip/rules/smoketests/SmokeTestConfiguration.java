@@ -1,33 +1,64 @@
-package uk.gov.hmcts.reform.finrem.caseorchestration.smoketests;
+package uk.gov.hmcts.reform.laubackend.cases.smoke;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ContextConfiguration;
 
-@ComponentScan("uk.gov.hmcts.reform.pip.rules.smoketests")
-@PropertySource("application.properties")
-public class SmokeTestConfiguration {
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-     @Value("${test.instance.uri}")
+@SpringBootTest
+@ContextConfiguration(classes = {SmokeTestConfiguration.class})
+public class SmokeTests {
+
+    @Value("${test.instance.uri}")
     private String url;
 
-    private RestAssuredConfig config;
+    private static final int HTTP_OK = HttpStatus.OK.value();
 
-    @Before
+    RequestSpecification requestSpec;
+
+    @BeforeEach
     public void setUp() {
-        RestAssured.useRelaxedHTTPSValidation();
-        config = RestAssured.config()
-                .httpClient(HttpClientConfig.httpClientConfig()
-                        .setParam("http.connection.timeout", 60000)
-                        .setParam("http.socket.timeout", 60000)
-                        .setParam("http.connection-manager.timeout", 60000));
+        RequestSpecBuilder builder = new RequestSpecBuilder();
+        builder.addParam("http.connection.timeout", "60000");
+        builder.addParam("http.socket.timeout", "60000");
+        builder.addParam("http.connection-manager.timeout", "60000");
+        builder.setRelaxedHTTPSValidation();
+        requestSpec = builder.build();
     }
 
     @Test
-    public void shouldGetOkStatusFromHealthEndpoint() {
-        given().config(config)
-                .when()
-                .get(url + "/health")
-                .then()
-                .statusCode(HttpStatus.OK.value());
+    public void shouldGetOkStatusFromHealthEndpointForLauBackend() {
+
+        ValidatableResponse response = given().spec(requestSpec)
+            .when()
+            .get(url + "/health")
+            .then()
+            .statusCode(HTTP_OK);
+        assertTrue(okResponse(response),"Health endpoint should be HTTP 200 (ok)");
+    }
+
+    @Test
+    public void shouldGetOkStatusFromInfoEndpointForLauBackend() {
+        ValidatableResponse response = given().spec(requestSpec)
+            .when()
+            .get(url + "/info")
+            .then()
+            .statusCode(HTTP_OK)
+            .body("git.commit.id", notNullValue())
+            .body("git.commit.time", notNullValue());
+        assertTrue(okResponse(response), "Info endpoint should be HTTP 200 (ok)");
+    }
+
+    private boolean okResponse(ValidatableResponse response) {
+        return response.extract().statusCode() == HTTP_OK ? Boolean.TRUE : Boolean.FALSE;
     }
 }
