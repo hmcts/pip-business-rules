@@ -23,14 +23,11 @@ public class InMemoryRepository {
 
     private List<Hearing>  listHearings;
 
-    private static final String mockPath = "src/main/java/uk/gov/hmcts/reform/pip/rules/repository/mocks/";
-
     public InMemoryRepository() throws IOException {
 
         ObjectMapper om = new ObjectMapper().setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
 
         InputStream fileHearings = getClass().getClassLoader().getResourceAsStream("hearingsList.json");
-        //File fileHearings = new File(mockPath + "hearingsList.json");
         Hearing[] list = om.readValue(fileHearings, Hearing[].class);
         this.listHearings = Arrays.asList(list);
 
@@ -48,18 +45,17 @@ public class InMemoryRepository {
      * @return The court hearings to return, if found.
      */
     public Optional<Court> getCourtHearings(Integer courtId) {
-        Court court = this.listCourts.stream()
+        Optional<Court> courtOptional = this.listCourts.stream()
             .filter(c -> courtId.equals(c.getCourtId()))
-            .findAny()
-            .orElse(null);
+            .findAny();
 
-        if (court != null) {
+        if (courtOptional.isPresent()) {
             List<Hearing> hearings = this.getHearings(courtId);
+            Court court = courtOptional.get();
             court.setHearingList(hearings);
-            return Optional.of(court);
-        } else {
-            return Optional.empty();
+            courtOptional = Optional.of(court);
         }
+        return courtOptional;
     }
 
     private List<Hearing> getHearings(Integer courtId) {
