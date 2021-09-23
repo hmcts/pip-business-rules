@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.model.Court;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
+
+import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -41,25 +43,71 @@ public class RootController {
     }
 
     /**
-     * This endpoint returns a publication, based on it's ID.
+     * This endpoint returns a court list, based on input search.
      *
-     * <p>It will apply the business rules against the publication and requesting user,
-     * to understand whether they should see the requested publication.
+     * <p>It will apply the business rules against the court and requesting user,
+     * to understand whether they should see the requested court.
      *
      * <p>If the user does not have permission to see the resource, or the resource is not found,
      * then a 404 will be returned instead.
      *
-     * @param id The ID of the publication to search for.
-     * @return The publication, if found.
+     * @param input The ID of the court to search for.
+     * @return The court, if found.
      */
-    @GetMapping("/publication/{id}")
+    @GetMapping("/api/courtlist/{input}")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, response = String.class, message = "Publication has been found"),
-        @ApiResponse(code = 404, response = String.class, message = "Publication has not been found")
+        @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
+        @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
     })
-    public ResponseEntity<Publication> getPublication(
-        @ApiParam(value = "The publication ID to retrieve", required = true) @PathVariable Integer id) {
+    public ResponseEntity<List<Court>> getCourtList(
+        @ApiParam(value = "The input search to retrieve", required = true) @PathVariable String input) {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(rulesService.getPublication(id));
+            .body(rulesService.getCourtList(input));
+    }
+
+    /**
+     * This endpoint returns a court list.
+     *
+     * <p>It will apply the business rules against the court and requesting user,
+     * to understand whether they should see the requested court.
+     *
+     * <p>If the user does not have permission to see the resource, or the resource is not found,
+     * then a 404 will be returned instead.
+     *
+     * @return The list of all courts, if found.
+     */
+    @GetMapping("/api/courtlistall")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, response = String.class, message = "Court has been found"),
+        @ApiResponse(code = 404, response = String.class, message = "Court has not been found")
+    })
+    public ResponseEntity<List<Court>> getCourtList() {
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(rulesService.getCourtList(""));
+    }
+
+    /**
+     * This endpoint returns a hearings list, based on court's ID.
+     *
+     * <p>It will apply the business rules against the court and requesting user,
+     * to understand whether they should see the requested court.
+     *
+     * <p>If the user does not have permission to see the resource, or the resource is not found,
+     * then a 404 will be returned instead.
+     *
+     * @param id The ID of the court to search for.
+     * @return The hearings list, if found.
+     */
+    @GetMapping("/api/hearings/{id}")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, response = String.class, message = "hearings have been found"),
+        @ApiResponse(code = 404, response = String.class, message = "hearings have not been found")
+    })
+    public ResponseEntity<Court> getHearings(
+        @ApiParam(value = "The court ID to retrieve", required = true) @PathVariable Integer id) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(rulesService.getHearings(id));
+
     }
 }

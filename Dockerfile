@@ -6,5 +6,5 @@ ENV APP pip-business-rules.jar
 COPY build/libs/$APP /opt/app/
 COPY lib/AI-Agent.xml /opt/app/
 
-EXPOSE 8080
+EXPOSE 8000
 CMD [ "pip-business-rules.jar" ]

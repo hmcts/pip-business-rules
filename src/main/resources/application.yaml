@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8000
 
 management:
   endpoint:
@@ -15,8 +15,11 @@ management:
 spring:
   config:
     import: "optional:configtree:/mnt/secrets/"
+  jackson:
+    serialization.write_dates_as_timestamps: false
   application:
     name: Spring Boot Template
+
 #  datasource:
 #    driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}${DB_OPTIONS:}

@@ -4,8 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
+import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.CourtNotFoundException;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 
 /**
@@ -15,15 +16,17 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    public static final String DATE_PARSE_ERROR_MESSAGE = "Failed to parse date";
+
     /**
-     * Template exception handler, that handles a custom PublicationNotFoundException,
+     * Template exception handler, that handles a custom CourtNotFoundException,
      * and returns a 404 in the standard format.
      * @param ex The exception that has been thrown.
      * @return The error response, modelled using the ExceptionResponse object.
      */
-    @ExceptionHandler(PublicationNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handlePublicationNotFound(
-        PublicationNotFoundException ex) {
+    @ExceptionHandler(CourtNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleCourtNotFound(
+        CourtNotFoundException ex) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
         exceptionResponse.setMessage(ex.getMessage());
@@ -32,4 +35,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
     }
 
+    /**
+     * Template exception handler, that handles a custom ParseException,
+     * and returns a 500 in the standard format.
+     * @param ex The exception that has been thrown.
+     * @return The error response, modelled using the ExceptionResponse object.
+     */
+    @ExceptionHandler(ParseException.class)
+    public ResponseEntity<ExceptionResponse> handleParseException(
+        ParseException ex) {
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
+        exceptionResponse.setMessage(DATE_PARSE_ERROR_MESSAGE);
+        exceptionResponse.setTimestamp(LocalDateTime.now());
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
+    }
 }

@@ -9,13 +9,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uk.gov.hmcts.reform.pip.rules.controllers.RootController;
-import uk.gov.hmcts.reform.pip.rules.errorhandling.exceptions.PublicationNotFoundException;
-import uk.gov.hmcts.reform.pip.rules.model.Publication;
+import uk.gov.hmcts.reform.pip.rules.model.Court;
+import uk.gov.hmcts.reform.pip.rules.model.Hearing;
 import uk.gov.hmcts.reform.pip.rules.rules.RulesService;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,57 +39,72 @@ public class RootControllerTest {
     }
 
     @Test
-    @DisplayName("Tests that a 200 code is returned, with a non null body")
-    public void testGetPublicationOkResponse() {
+    @DisplayName("Tests that a 200 code is returned, with a court list is returned for search input")
+    public void testGetCourtList() {
+        List<Court> courts = new ArrayList<>();
+        Court court = new Court();
+        court.setName("sometext");
+        court.setCourtId(1);
 
-        int publicationId = 1;
+        courts.add(court);
 
-        Publication publication = new Publication();
-        publication.setPublicationId(publicationId);
+        when(rulesService.getCourtList("sometext")).thenReturn(courts);
 
-        when(rulesService.getPublication(publicationId)).thenReturn(publication);
-
-        ResponseEntity<Publication> publicationResponse = rootController.getPublication(publicationId);
-
-        assertEquals(HttpStatus.OK, publicationResponse.getStatusCode(), "An OK response code is returned");
-        assertNotNull(publicationResponse.getBody(), "At least one publication is returned");
+        ResponseEntity<List<Court>> response = rootController.getCourtList("sometext");
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "An OK response code is returned");
+        assertEquals(courts, response.getBody(),
+                     "The correct response body is returned");
     }
 
     @Test
-    @DisplayName("Tests that the publication that is returned, matches the publication that was mocked")
-    public void testGetPublicationContainsExpectedBody() {
+    @DisplayName("Tests that a 200 code is returned, with a court list "
+        + "is returned for an empty search input")
+    public void testGetCourtListAll() {
+        List<Court> courts = new ArrayList<>();
+        Court court = new Court();
+        court.setName("sometext");
+        court.setCourtId(1);
 
-        int publicationId = 1;
+        courts.add(court);
 
-        Publication publication = new Publication();
-        publication.setPublicationId(publicationId);
+        when(rulesService.getCourtList("")).thenReturn(courts);
 
-        when(rulesService.getPublication(publicationId)).thenReturn(publication);
-
-        ResponseEntity<Publication> publicationResponse = rootController.getPublication(publicationId);
-
-        Publication returnedPublication = publicationResponse.getBody();
-        assertEquals(returnedPublication, publication, "The expected publication is returned");
+        ResponseEntity<List<Court>> response = rootController.getCourtList("");
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "An OK response code is returned");
+        assertEquals(courts, response.getBody(),
+                     "The correct response body is returned");
     }
 
+
     @Test
-    @DisplayName("Test that if the service throws an exception due to it not being found,"
-        + " that it correctly gets passed through the controller (upwards to the exception handler)")
-    public void testPublicationNotFoundException() {
+    @DisplayName("Tests that a 200 code is returned, with the correct response message "
+        + "and a court is returned and the hearings list is returned")
+    public void testGetHearings() {
+        Court court = new Court();
+        court.setName("sometext");
+        court.setCourtId(1);
 
-        int publicationId = 2;
-        String exceptionMessage = "Publication with ID " + publicationId + " has not been found";
+        Hearing hearing = new Hearing();
+        hearing.setHearingId(1);
+        hearing.setCaseName("some case name");
+        hearing.setJudge("some judge");
+        hearing.setCaseNumber("123-456");
+        hearing.setDate(new Date());
 
-        when(rulesService.getPublication(publicationId))
-            .thenThrow(new PublicationNotFoundException(exceptionMessage));
+        List<Hearing> hearings = new ArrayList<>();
+        hearings.add(hearing);
+        court.setHearingList(hearings);
+        List<Court> courts = new ArrayList<>();
+        courts.add(court);
 
-        PublicationNotFoundException publicationNotFoundException =
-            assertThrows(PublicationNotFoundException.class, () -> rootController.getPublication(publicationId),
-                         "Test that the exception thrown is returned by the controller, "
-                             + "and therefore sent up to the global exception handler");
+        when(rulesService.getHearings(1)).thenReturn(court);
 
-        assertEquals(exceptionMessage, publicationNotFoundException.getMessage(), "Check that the message "
-            + "in the exception is sent through");
+        ResponseEntity<Court> response = rootController.getHearings(1);
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "An OK response code is returned");
+        assertEquals(court, response.getBody(),
+                     "The correct response body is returned");
+        assertEquals(court.getHearingList().size(), 1,
+                     "The correct response body is returned");
     }
 
 }
