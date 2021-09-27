@@ -20,7 +20,7 @@ allprojects {
   sourceCompatibility = '11'
   targetCompatibility = '11'
 }
-
+ 
 repositories {
     jcenter()
     mavenLocal()
