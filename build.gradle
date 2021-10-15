@@ -20,7 +20,7 @@ allprojects {
   sourceCompatibility = '11'
   targetCompatibility = '11'
 }
- 
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -161,10 +161,12 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
 
-  implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+  implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: reformLoggingVersion
   implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: reformLoggingVersion
+
+  implementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre'
 
   testImplementation(platform('org.junit:junit-bom:5.8.1'))
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
