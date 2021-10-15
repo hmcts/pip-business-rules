@@ -185,7 +185,7 @@ dependencies {
 }
 
 bootJar {
-  archiveFileName = "spring-boot-template.jar"
+  archiveFileName = "pip-business-rules.jar"
 
   manifest {
     attributes('Implementation-Version': project.version.toString())
